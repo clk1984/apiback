@@ -1,0 +1,2 @@
+[Thu Aug 17 13:37:56.601610 2017] [http:error] [pid 2170] [client 127.0.0.1:44240] AH02429: Response header name 'Acces-Control-Allow-Headers ' contains invalid characters, aborting request, referer: http://localhost:4200/
+[Thu Aug 17 13:38:24.879536 2017] [http:error] [pid 2172] [client 127.0.0.1:44474] AH02429: Response header name 'Acces-Control-Allow-Headers ' contains invalid characters, aborting request, referer: http://localhost:4200/
