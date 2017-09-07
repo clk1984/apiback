@@ -14,9 +14,21 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware(['auth:api','cors'])->get('/user', function (Request $request) {
-	dd('daedad');
+dd('daedad');
     return $request->user();
 
 
 });
-	Route::get('/articles', 'fooController@index')->middleware('cors');
+
+
+Route::post('login', 'UserController@login');
+
+Route::post('register', 'UserController@register');
+
+
+Route::group(['middleware' => 'auth:api'], function(){
+
+    Route::post('details', 'UserController@details');
+   Route::get('/articles', 'fooController@index');
+
+});
