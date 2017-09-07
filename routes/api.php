@@ -13,13 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware(['auth:api','cors'])->get('/user', function (Request $request) {
-dd('daedad');
-    return $request->user();
-
-
-});
-
 
 Route::post('login', 'UserController@login');
 
