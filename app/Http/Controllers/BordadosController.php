@@ -13,7 +13,8 @@ class BordadosController extends Controller
      */
     public function index()
     {
-        //
+       $bordados = Bordado::all();
+       return $bordados;
     }
 
     /**
@@ -28,10 +29,11 @@ class BordadosController extends Controller
         $bordado->name = $request['name'];
         $bordado->description = $request['description'];
         $bordado->path=  $request->file('path')->store('bordados');
-        $bordado->user_id = 2;
+        $bordado->user_id = 13;
 
         try {
             $bordado->save();
+            return parent::response(true,null,$bordado);
         } catch (Exception $e) {
             dd($e);
         }
@@ -45,8 +47,21 @@ class BordadosController extends Controller
      */
     public function show($id)
     {
-        //
+         try{
+
+      $element = Bordado::find($id);
+
+      if(!$element)
+        return parent::response(false. 'Not found', null, 404);
+
+      return parent::response(true, null, $element);
+
+    }catch(Exception $e){
+
+      return parent::response(false, $e->getMessage(), null, 500);
+
     }
+            }
 
     /**
      * Show the form for editing the specified resource.
