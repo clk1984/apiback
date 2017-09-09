@@ -22,6 +22,8 @@ Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('details', 'UserController@details');
-   Route::get('/articles', 'fooController@index');
+   Route::get('articles', 'fooController@index');
 
 });
+
+Route::post('bordados','BordadosController@store');
