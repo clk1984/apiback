@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable,HasApiTokens;
 
+        protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +32,6 @@ class User extends Authenticatable
     ];
     public function bordados()
     {
-        return $this->hasMany('App\Bordados');
+        return $this->hasMany('App\Bordado');
     }
 }

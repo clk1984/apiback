@@ -1,8 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-use App\Bordados as Bordado;
+use File;
+use Storage;
+use App\Bordado as Bordado;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class BordadosController extends Controller
 {
@@ -14,6 +17,10 @@ class BordadosController extends Controller
     public function index()
     {
        $bordados = Bordado::all();
+
+       foreach ($bordados as $bordado) {
+           $bordado['user'] = $bordado->user;
+       }
        return $bordados;
     }
 
@@ -28,8 +35,12 @@ class BordadosController extends Controller
         $bordado = new Bordado();
         $bordado->name = $request['name'];
         $bordado->description = $request['description'];
-        $bordado->path=  $request->file('path')->store('bordados');
-        $bordado->user_id = 13;
+        $image_name=  $request->file('path')->store('public');
+        $image = Image::make(Storage::get($image_name))->resize(120,90)->encode();
+        $bordado->path = Storage::url($image_name);
+
+
+        $bordado->user_id = 2;
 
         try {
             $bordado->save();
