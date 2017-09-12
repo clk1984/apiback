@@ -40,7 +40,7 @@ class BordadosController extends Controller
         $bordado->path = Storage::url($image_name);
 
 
-        $bordado->user_id = 2;
+        $bordado->user_id = 13;
 
         try {
             $bordado->save();

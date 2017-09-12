@@ -28,3 +28,4 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 Route::post('bordados','BordadosController@store');
 Route::get('bordados','BordadosController@index');
+
