@@ -35,12 +35,26 @@ class BordadosController extends Controller
         $bordado = new Bordado();
         $bordado->name = $request['name'];
         $bordado->description = $request['description'];
-        $image_name=  $request->file('path')->store('public');
-        $image = Image::make(Storage::get($image_name))->resize(120,90)->encode();
-        $bordado->path = Storage::url($image_name);
+         foreach ($request->file() as $file) {
+             $fi = $file;
+         }
+        // $resize = Image::make($fi)->resize(3,2)->encode();
 
 
-        $bordado->user_id = 13;
+        // $image_name=  $fi->store('public');
+        // $bordado->path = Storage::url($image_name);
+
+
+
+            $filename  = time() . '.' . $fi->getClientOriginalExtension();
+            $resizedfile = time() . 'resized.' . $fi->getClientOriginalExtension();
+            $path = public_path('img/' . $filename);
+            $resizedpath =public_path('img/' . $resizedfile);
+            Image::make($fi->getRealPath())->save($path);
+            Image::make($fi->getRealPath())->resize(256, 250)->save($resizedpath);
+            $bordado->path = '/img/'.$filename;
+            $bordado->resizedpath = '/img/'.$resizedfile;
+            $bordado->user_id = 1;
 
         try {
             $bordado->save();

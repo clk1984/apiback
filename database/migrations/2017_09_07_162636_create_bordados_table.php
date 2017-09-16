@@ -18,6 +18,7 @@ class CreateBordadosTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('path');
+            $table->string('resizedpath');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
