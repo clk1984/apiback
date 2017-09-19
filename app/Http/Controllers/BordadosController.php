@@ -16,12 +16,9 @@ class BordadosController extends Controller
      */
     public function index()
     {
-       $bordados = Bordado::all();
+     $a = new Bordado;
 
-       foreach ($bordados as $bordado) {
-           $bordado['user'] = $bordado->user;
-       }
-       return $bordados;
+     return $a->showLikes(2);
     }
 
     /**
@@ -38,12 +35,6 @@ class BordadosController extends Controller
          foreach ($request->file() as $file) {
              $fi = $file;
          }
-        // $resize = Image::make($fi)->resize(3,2)->encode();
-
-
-        // $image_name=  $fi->store('public');
-        // $bordado->path = Storage::url($image_name);
-
 
 
             $filename  = time() . '.' . $fi->getClientOriginalExtension();
@@ -52,7 +43,7 @@ class BordadosController extends Controller
             $resizedpath =public_path('img/' . $resizedfile);
             Image::make($fi->getRealPath())->save($path);
             Image::make($fi->getRealPath())->resize(256, 250)->save($resizedpath);
-            $bordado->path = '/img/'.$filename;
+            $bordado->src = 'http://laravel.example.com/img/'.$filename;
             $bordado->resizedpath = '/img/'.$resizedfile;
             $bordado->user_id = 1;
 

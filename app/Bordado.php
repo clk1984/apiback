@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Bordado extends Model
 {
 
+    protected $table = 'bordados';
 
-         protected $table = 'bordados';
-
-     protected $fillable = [
+    protected $fillable = [
         'name', 'description', 'path','user_id'
     ];
     protected  $hidden =[];
@@ -18,5 +17,15 @@ class Bordado extends Model
     public function user()
     {
         return $this->belongsTo('App\User','user_id');
+    }
+     public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+    public static function showLikes($id){
+         return Bordado::with('likes')
+                        ->with('user')
+                        ->get();
+
     }
 }
