@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use File;
 use Storage;
+use Auth;
 use App\Bordado as Bordado;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -17,8 +18,9 @@ class BordadosController extends Controller
     public function index()
     {
      $a = new Bordado;
-
-     return $a->showLikes(2);
+     $a = $a->showLikes();
+     $a[0]['auth_user'] = Auth::loginUsingId(2);
+     return $a;
     }
 
     /**
@@ -40,7 +42,7 @@ class BordadosController extends Controller
             $filename  = time() . '.' . $fi->getClientOriginalExtension();
             $resizedfile = time() . 'resized.' . $fi->getClientOriginalExtension();
             $path = public_path('img/' . $filename);
-            $resizedpath =public_path('img/' . $resizedfile);
+            $resizedpath = public_path('img/' . $resizedfile);
             Image::make($fi->getRealPath())->save($path);
             Image::make($fi->getRealPath())->resize(256, 250)->save($resizedpath);
             $bordado->src = 'http://laravel.example.com/img/'.$filename;

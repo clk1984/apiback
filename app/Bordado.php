@@ -22,7 +22,7 @@ class Bordado extends Model
     {
         return $this->hasMany('App\Like');
     }
-    public static function showLikes($id){
+    public static function showLikes(){
          return Bordado::with('likes')
                         ->with('user')
                         ->get();
