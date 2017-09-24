@@ -19,7 +19,7 @@ class BordadosController extends Controller
     {
      $a = new Bordado;
      $a = $a->showLikes();
-     $a[0]['auth_user'] = Auth::loginUsingId(2);
+     $a[0]['auth_user'] = Auth::id();
      return $a;
     }
 
@@ -53,7 +53,7 @@ class BordadosController extends Controller
             $bordado->save();
             return parent::response(true,null,$bordado);
         } catch (Exception $e) {
-            dd($e);
+            return $e;
         }
     }
 
