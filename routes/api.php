@@ -17,15 +17,16 @@ use Illuminate\Http\Request;
 Route::post('login', 'UserController@login');
 
 Route::post('register', 'UserController@register');
-Route::post('details', 'UserController@details');
+
+//Route::post('details', 'UserController@details');
 
 
 Route::group(['middleware' => 'auth:api'], function(){
 
-Route::post('bordados','BordadosController@store');
-Route::get('bordados','BordadosController@index');
-Route::post('bordados/{id}/like','LikeController@like' );
-Route::post('bordados/{id}/unlike','LikeController@unlike' );
+    Route::post('bordados','BordadosController@store');
+    Route::get('bordados','BordadosController@index');
+    Route::post('bordados/{id}/like','LikeController@like' );
+    Route::post('bordados/{id}/unlike','LikeController@unlike' );
 
 });
 

@@ -53,7 +53,7 @@ class BordadosController extends Controller
             $bordado->save();
             return parent::response(true,null,$bordado);
         } catch (Exception $e) {
-            return $e;
+            return parent::response(false,'Unauthorised',$e,401);
         }
     }
 
