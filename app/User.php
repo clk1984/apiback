@@ -34,13 +34,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Bordado');
     }
+
     public function likes()
     {
         return $this->hasMany('App\Like');
     }
+
     public function userLikes(integer $id){
         return User::where('id',$id)
                         ->with('likes')
                         ->get();
     }
+
 }

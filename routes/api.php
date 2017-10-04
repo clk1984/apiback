@@ -27,7 +27,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('bordados','BordadosController@index');
     Route::post('bordados/{id}/like','LikeController@like' );
     Route::post('bordados/{id}/unlike','LikeController@unlike' );
+  //  Route::get ('bordados/{user}','BordadosController@getAll');
+   Route::get ('bordados/like' , 'LikeController@getAll');
 
 });
 
-Route::get('/user', function (Request $request){ return $request->user()->id; })->middleware('auth:api');
+
+ Route::get('/user', function (Request $request){ return $request->user()->id; })->middleware('auth:api');

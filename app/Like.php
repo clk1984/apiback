@@ -22,4 +22,9 @@ class Like extends Model
         return $this->belongsTo('App\Bordado','bordado_id');
     }
 
+    public function userLikes($userId){
+             return Like::where('user_id',$userId)
+                        ->get();
+
+    }
 }

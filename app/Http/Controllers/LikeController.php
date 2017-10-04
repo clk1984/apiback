@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Like as Like;
 use Illuminate\Http\Request;
-
+use Auth;
 class LikeController extends Controller
 {
 
@@ -23,4 +23,15 @@ class LikeController extends Controller
             return parent::response(true,null,$like);
 
         }
+
+    public function getAll (){
+          $userId = Auth::id();
+          $like = new Like();
+          $like = $like->userLikes($userId);
+          $likes = [];
+          foreach ($like as $key ) {
+                $likes[] = $key->bordado;
+          }
+           return parent::response(true,null,$likes);
+    }
 }
