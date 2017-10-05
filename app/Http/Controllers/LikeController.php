@@ -8,30 +8,64 @@ class LikeController extends Controller
 {
 
     public function like($id , Request $request){
-            $like = new Like();
-            $like->bordado_id = $id;
-            $like->user_id = $request['userId'];
-            $like->save();
+         try{
+                     $like = new Like();
 
-            return parent::response(true,null,$like);
-    }
-    public function unlike($bordadoId, Request $request){
+                     $like->bordado_id = $id;
 
-            $like = Like::where('bordado_id',$bordadoId)
-                        ->where('user_id',$request['userId'])
-                        ->delete();
-            return parent::response(true,null,$like);
+                     $like->user_id = $request['userId'];
+
+                     $like->save();
+
+                    return parent::response(true,null,$like);
+         }catch(\Exception $e) {
+
+            return parent::response(false, $e->getMessage(), null, 400);
 
         }
+    }
+    public function unlike($bordadoId, Request $request){
+          try{
+                   $like = Like::where('bordado_id',$bordadoId)
+                                 ->where('user_id',$request['userId'])
+                                 ->delete();
+                if(!$like)
+                      return parent::response(false. 'Not found', null, 404);
 
-    public function getAll (){
+                      return parent::response(true,null,$like);
+          }catch(\Exception $e) {
+
+            return parent::response(false, $e->getMessage(), null, 400);
+
+        }
+    }
+
+    public function getUserLiked (){
+
           $userId = Auth::id();
+
           $like = new Like();
+
           $like = $like->userLikes($userId);
+
+          $i = -1;
+
           $likes = [];
+
           foreach ($like as $key ) {
-                $likes[] = $key->bordado;
+                $i++;
+
+                $likes[$i] = $key->bordado;
+
+                $likes[$i]['user'] = $key->bordado->user;
           }
+          if ($likes) {
+
+              $likes[0]['auth_user'] = $userId;
+
+          }
+
            return parent::response(true,null,$likes);
     }
+
 }
