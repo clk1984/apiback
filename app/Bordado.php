@@ -12,12 +12,14 @@ class Bordado extends Model
     protected $fillable = [
         'name', 'description', 'path','user_id'
     ];
+
     protected  $hidden =[];
 
     public function user()
     {
         return $this->belongsTo('App\User','user_id');
     }
+
      public function likes()
     {
         return $this->hasMany('App\Like');
@@ -28,5 +30,12 @@ class Bordado extends Model
                         ->with('user')
                         ->get();
 
+    }
+
+    public static function getUserBordados(int $userId){
+        return Bordado::where('user_id',$userId)
+                        ->with('likes')
+                        ->with('user')
+                        ->get();
     }
 }

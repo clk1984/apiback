@@ -17,10 +17,21 @@ class BordadosController extends Controller
      */
     public function index()
     {
-     $a = new Bordado;
-     $a = $a->showLikes();
-     $a[0]['auth_user'] = Auth::id();
-     return $a;
+    try
+     {
+        $bordados = new Bordado;
+
+        $bordados = $bordados->showLikes();
+
+        $bordados[0]['auth_user'] = Auth::id();
+
+         return parent::response(true, null, $bordados);
+
+        } catch (\Exception $e) {
+
+            return parent::response(false, $e->getMessage(), null, 400);
+
+        }
     }
 
     /**
@@ -47,7 +58,7 @@ class BordadosController extends Controller
             Image::make($fi->getRealPath())->resize(256, 250)->save($resizedpath);
             $bordado->src = 'http://laravel.example.com/img/'.$filename;
             $bordado->resizedpath = '/img/'.$resizedfile;
-            $bordado->user_id = 1;
+            $bordado->user_id = Auth::id();
 
         try {
             $bordado->save();
@@ -72,7 +83,7 @@ class BordadosController extends Controller
       if(!$element)
         return parent::response(false. 'Not found', null, 404);
 
-      return parent::response(true, null, $element);
+        return parent::response(true, null, $element);
 
     }catch(Exception $e){
 
@@ -80,6 +91,36 @@ class BordadosController extends Controller
 
     }
             }
+
+      /**
+     * Get Photos by user.
+     *
+     * @param  str  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserPhotos($userId){
+
+    try{
+
+        $bordados = new Bordado();
+
+        $bordados = $bordados->getUserBordados($userId);
+
+    if(!$bordados)
+
+      return parent::response(false. 'Not found', null, 404);
+
+     $bordados[0]['auth_user'] = Auth::id();
+
+      return parent::response(true, null, $bordados);
+
+    }catch(Exception $e){
+
+      return parent::response(false, $e->getMessage(), null, 500);
+
+    }
+ }
+
 
     /**
      * Show the form for editing the specified resource.
