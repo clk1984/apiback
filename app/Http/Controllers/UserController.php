@@ -76,7 +76,7 @@ class UserController extends Controller
         $input = $request->all();
 
         $input['password'] = bcrypt($input['password']);
-
+       // dd($input);
         $user = User::create($input);
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;

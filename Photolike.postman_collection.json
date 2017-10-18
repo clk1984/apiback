@@ -1,0 +1,120 @@
+{
+	"info": {
+		"name": "Photolike",
+		"_postman_id": "7022d678-2872-8a62-7140-3ce702c26723",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario registrar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response includes token\"] = responseBody.has(\"token\");",
+							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"function makeid() {",
+							"  var text = \"\";",
+							"  var possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";",
+							"",
+							"  for (var i = 0; i < 5; i++)",
+							"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"",
+							"  return text+\"@gmail.com\";",
+							"}",
+							"",
+							"postman.setEnvironmentVariable(\"email\",makeid());",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"su cotorrisima\",\n\t\"email\": \"{{email}}\",\n\t\"password\":\"picopico\",\n\t\"c_password\":\"picopico\"\n}"
+				},
+				"url": {
+					"raw": "http://laravel.example.com/api/register",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response includes token\"] = responseBody.has(\"token\");",
+							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"prueba@prueba.com\",\n\t\"password\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://laravel.example.com/api/login",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
