@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','password'
+        'name', 'email'
     ];
 
     /**
@@ -28,8 +28,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-         'remember_token'
+         'remember_token','password'
     ];
+
     public function bordados()
     {
         return $this->hasMany('App\Bordado');
