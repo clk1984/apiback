@@ -82,6 +82,9 @@
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"tests[\"Response includes token\"] = responseBody.has(\"token\");",
 							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", data.success.token);",
 							""
 						]
 					}
@@ -110,6 +113,114 @@
 					"path": [
 						"api",
 						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Bordados lista",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var data =  JSON.parse(responseBody);",
+							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
+							"tests[\"Response image\"] = responseBody.has(\"src\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"type": "any"
+						},
+						{
+							"key": "callBackUrl",
+							"type": "any"
+						},
+						{
+							"key": "authUrl",
+							"type": "any"
+						},
+						{
+							"key": "accessTokenUrl",
+							"type": "any"
+						},
+						{
+							"key": "clientId",
+							"type": "any"
+						},
+						{
+							"key": "clientSecret",
+							"type": "any"
+						},
+						{
+							"key": "clientAuth",
+							"type": "any"
+						},
+						{
+							"key": "grantType",
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"type": "any"
+						},
+						{
+							"key": "username",
+							"type": "any"
+						},
+						{
+							"key": "password",
+							"type": "any"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "redirectUri",
+							"type": "any"
+						},
+						{
+							"key": "refreshToken",
+							"type": "any"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://laravel.example.com/api/bordados",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"bordados"
 					]
 				},
 				"description": ""
