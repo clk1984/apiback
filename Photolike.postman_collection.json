@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "Photolike",
-		"_postman_id": "7022d678-2872-8a62-7140-3ce702c26723",
+		"_postman_id": "4699a798-9e55-30cc-f6fa-5cc9aae0423a",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,6 +17,9 @@
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"tests[\"Response includes token\"] = responseBody.has(\"token\");",
 							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"user_id\", data.success.id);",
 							""
 						]
 					}
@@ -66,8 +69,7 @@
 						"api",
 						"register"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -114,8 +116,7 @@
 						"api",
 						"login"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -128,9 +129,9 @@
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"var data =  JSON.parse(responseBody);",
 							"tests[\"Response includes user data\"] = responseBody.has(\"name\");",
-							"tests[\"Response image\"] = responseBody.has(\"src\");",
+							"tests[\"Response has  image path\"] = responseBody.has(\"path\");",
+							"tests[\"Response has resized image\"] = responseBody.has(\"path\");",
 							""
 						]
 					}
@@ -221,6 +222,189 @@
 					"path": [
 						"api",
 						"bordados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bordado - Guardar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response includes image name\"] = responseBody.has(\"name\");",
+							"tests[\"Response includes image description\"] = responseBody.has(\"path\");",
+							"tests[\"Response includes author\"] = responseBody.has(\"user_id\");",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"bordado_id\", data.response.id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "prueba {{$randomInt}}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "decsripcion de la prueba con nombre aleatorio",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"description": "",
+							"type": "file",
+							"src": "./pv_mirada2.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://laravel.example.com/api/bordados",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"bordados"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Likes Get logged user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://laravel.example.com/api/bordados/like",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"bordados",
+						"like"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "bordado like",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"bordado_id\":\"{{bordado_id}}\",\n\t\"userId\":{{user_id}}\n\t\n}"
+				},
+				"url": {
+					"raw": "http://laravel.example.com/api/bordados/{{bordado_id}}/like",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"bordados",
+						"{{bordado_id}}",
+						"like"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "bordado unlike",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"bordado_id\":\"{{bordado_id}}\",\n\t\"userId\":\"{{user_id}}\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://laravel.example.com/api/bordados/{{bordado_id}}/unlike",
+					"protocol": "http",
+					"host": [
+						"laravel",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"bordados",
+						"{{bordado_id}}",
+						"unlike"
 					]
 				},
 				"description": ""
