@@ -56,7 +56,7 @@ class BordadosController extends Controller
             $resizedpath = public_path('img/' . $resizedfile);
             Image::make($fi->getRealPath())->save($path);
             Image::make($fi->getRealPath())->resize(256, 250)->save($resizedpath);
-            $bordado->src = 'http://laravel.example.com/img/'.$filename;
+            $bordado->src = '/img/'.$filename;
             $bordado->resizedpath = '/img/'.$resizedfile;
             $bordado->user_id = Auth::id();
 

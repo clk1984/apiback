@@ -58,7 +58,7 @@
 					"raw": "{\n\t\"name\":\"su cotorrisima\",\n\t\"email\": \"{{email}}\",\n\t\"password\":\"picopico\",\n\t\"c_password\":\"picopico\"\n}"
 				},
 				"url": {
-					"raw": "http://laravel.example.com/api/register",
+					"raw": "http://api.photolike.bid/api/register",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -105,7 +105,7 @@
 					"raw": "{\n\t\"email\":\"prueba@prueba.com\",\n\t\"password\":\"123456\"\n}"
 				},
 				"url": {
-					"raw": "http://laravel.example.com/api/login",
+					"raw": "http://api.photolike.bid/api/login",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -212,7 +212,7 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://laravel.example.com/api/bordados",
+					"raw": "http://api.photolike.bid/api/bordados",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -279,7 +279,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://laravel.example.com/api/bordados",
+					"raw": "http://api.photolike.bid/api/bordados",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -320,7 +320,7 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://laravel.example.com/api/bordados/like",
+					"raw": "http://api.photolike.bid/api/bordados/like",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -356,7 +356,7 @@
 					"raw": "{\n\t\"bordado_id\":\"{{bordado_id}}\",\n\t\"userId\":{{user_id}}\n\t\n}"
 				},
 				"url": {
-					"raw": "http://laravel.example.com/api/bordados/{{bordado_id}}/like",
+					"raw": "http://api.photolike.bid/api/bordados/{{bordado_id}}/like",
 					"protocol": "http",
 					"host": [
 						"laravel",
@@ -393,7 +393,7 @@
 					"raw": "{\n\t\"bordado_id\":\"{{bordado_id}}\",\n\t\"userId\":\"{{user_id}}\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://laravel.example.com/api/bordados/{{bordado_id}}/unlike",
+					"raw": "http://api.photolike.bid/api/bordados/{{bordado_id}}/unlike",
 					"protocol": "http",
 					"host": [
 						"laravel",
